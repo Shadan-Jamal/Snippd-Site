@@ -474,7 +474,7 @@ export function Terminal({
               {username} — bash
             </span>
           </div>
-          <div className="w-[52px]" />
+          <div className="w-13" />
         </div>
 
         {/* Terminal Content */}

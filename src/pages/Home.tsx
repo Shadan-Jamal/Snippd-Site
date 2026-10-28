@@ -59,14 +59,14 @@ export function HomePage() {
             A local-first CLI snippet manager. Save, search, tag, and reuse code without leaving your shell.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <HoverBorderGradient
-              as="a"
-              href="/docs"
-              containerClassName="inline-flex rounded-full"
-              className="rounded-full bg-background px-5 py-2 text-sm font-medium text-foreground"
-            >
-              Read the docs
-            </HoverBorderGradient>
+            <a href="/docs">
+              <HoverBorderGradient
+                containerClassName="inline-flex rounded-full"
+                className="rounded-full bg-background px-5 py-2 text-sm font-medium text-foreground"
+              >
+                Read the docs
+              </HoverBorderGradient>
+            </a>
             <a
               href="#use-cases"
               className="px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
