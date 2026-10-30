@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 import AiGuide from "./ai";
 import ConfigGuide from "./config";
-import ContainersGuide from "./containers";
+import ContainerGuide from "./container";
 import CopyGuide from "./copy";
 import DeleteGuide from "./delete";
 import DoctorGuide from "./doctor";
@@ -20,7 +20,7 @@ import ViewGuide from "./view";
 export const COMMAND_GUIDES: Record<string, ComponentType> = {
   ai: AiGuide,
   config: ConfigGuide,
-  containers: ContainersGuide,
+  container: ContainerGuide,
   copy: CopyGuide,
   delete: DeleteGuide,
   doctor: DoctorGuide,

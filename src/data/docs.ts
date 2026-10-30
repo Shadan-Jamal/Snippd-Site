@@ -235,7 +235,7 @@ export const DOC_GUIDES: DocGuide[] = [
       {
         kind: "code",
         lang: "bash",
-        body: 'snippd containers create "data-tools" -d "CSV and data utilities"\nsnippd containers add "data-tools" "parse-data"\nsnippd containers show',
+        body: 'snippd container create "data-tools" -d "CSV and data utilities"\nsnippd container add "data-tools" "parse-data"\nsnippd container show',
       },
       {
         kind: "note",
@@ -306,8 +306,8 @@ export const DOC_COMMANDS: DocCommand[] = [
   {
     id: "save",
     title: "save",
-    summary: "Create a snippet with a title, extension, and optional tags.",
-    usage: "snippd save \"<title>\" [-e,--ext <ext>] [-t,--tags <tags...>]",
+    summary: "Create a snippet in your editor, or save one snippet per file. With --file, the title is the filename and the extension is taken from it. Relative paths are resolved from the current directory.",
+    usage: "snippd save \"[title]\" [-e,--ext <ext>] [-t,--tags <tags...>] [-f,--file <paths...>]",
   },
   {
     id: "search",
@@ -398,10 +398,10 @@ export const DOC_COMMANDS: DocCommand[] = [
     ],
   },
   {
-    id: "containers",
-    title: "containers",
+    id: "container",
+    title: "container",
     summary: "Group snippets into named containers.",
-    usage: "snippd containers",
+    usage: "snippd container",
     sub_commands: [
       {
         name: "show",

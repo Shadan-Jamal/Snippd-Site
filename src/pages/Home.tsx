@@ -95,7 +95,7 @@ const USE_CASES = [
   {
     title: "Onboarding to a New Codebase",
     body: "Store seed commands, env setup, and test flags, then export the container for every new teammate.",
-    commands: [`snippd containers show`, `snippd export`],
+    commands: [`snippd container show`, `snippd export`],
     outputs: {
       0: ["onboarding · 6 snippets"],
       1: ["Wrote ~/.snippd/snippd-backup.db"],
@@ -120,7 +120,7 @@ const USE_CASES = [
 
 const CLI_LINKS = [
   { label: "tags", href: "/docs/tags" },
-  { label: "containers", href: "/docs/containers" },
+  { label: "container", href: "/docs/container" },
   { label: "search", href: "/docs/search" },
   { label: "snippd ai", href: "/docs/ai" },
   { label: "snippd ui", href: "/docs/ui" },

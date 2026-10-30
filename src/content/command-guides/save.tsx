@@ -9,6 +9,10 @@ const commandFlows = [
     code: 'snippd save "pool.rs" -t rust,concurrency',
     terminalOutput: ["Opening configured editor...", "pool.rs saved with tags: rust, concurrency"],
   },
+  {
+    code: 'snippd save --file "./src/utils/example/example_1.ts" "./src/utils/example/example_2.py" -t "file, examples"',
+    terminalOutput: ["Saved 2 snippets."],
+  },
 ];
 
 export default function SaveGuide() {
@@ -28,6 +32,10 @@ export default function SaveGuide() {
         {
           description: "Add the extension in the title itself and it'll be auto-detected.",
           code: 'snippd save "pool.rs" -t rust,concurrency',
+        },
+        {
+          description: "Use file paths using '--file' flag (extension is automatically detected from the filename).",
+          code: 'snippd save --file "./src/utils/example/example_1.ts" "./src/utils/example/example_2.py"',
         },
       ]}
       notes={[
