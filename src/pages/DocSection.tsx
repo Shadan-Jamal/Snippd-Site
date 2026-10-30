@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DOC_GUIDES, DOC_COMMANDS, type DocBlock } from "@/data/docs";
 import { COMMAND_GUIDES } from "@/content/command-guides";
 import { CodeBlock } from "@/components/docs/CommandGuideContent";
@@ -34,7 +34,50 @@ function BlockRenderer({ block }: { block: DocBlock }) {
           ))}
         </ul>
       );
+    case "install":
+      return <InstallCommandSwitcher options={block.options} />;
+    case "note":
+      return (
+        <aside
+          role="note"
+          className="mt-3 rounded-md border border-amber-300 bg-amber-100 px-4 py-3 text-sm leading-relaxed text-amber-950 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-100"
+        >
+          {block.body}
+        </aside>
+      );
   }
+}
+
+function InstallCommandSwitcher({
+  options,
+}: {
+  options: { label: string; command: string }[];
+}) {
+  const [selected, setSelected] = useState(options[0]);
+
+  return (
+    <div className="mt-3">
+      <div className="inline-flex rounded-md border border-border bg-muted/40 p-1" role="group" aria-label="Choose package manager">
+        {options.map((option) => (
+          <button
+            key={option.label}
+            type="button"
+            aria-pressed={selected.label === option.label}
+            onClick={() => setSelected(option)}
+            className={cn(
+              "rounded px-3 py-1.5 text-sm transition-colors cursor-pointer",
+              selected.label === option.label
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+      <CodeBlock code={selected.command} />
+    </div>
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -97,7 +140,7 @@ export function DocSectionPage({ id }: { id: string }) {
               type="button"
               onClick={() => selectItem(item.id)}
               className={cn(
-                "rounded-md px-2.5 py-1.5 text-left text-sm transition-colors",
+                "rounded-md px-2.5 py-1.5 text-left text-sm transition-colors cursor-pointer",
                 id === item.id
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground",
@@ -122,7 +165,7 @@ export function DocSectionPage({ id }: { id: string }) {
               type="button"
               onClick={() => selectItem(item.id)}
               className={cn(
-                "rounded-md px-2.5 py-1.5 text-left font-mono text-sm transition-colors",
+                "rounded-md px-2.5 py-1.5 text-left font-mono text-sm transition-colors cursor-pointer",
                 id === item.id
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground",

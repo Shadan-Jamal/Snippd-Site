@@ -81,7 +81,9 @@ export function CodeBlock({ code }: { code: string }) {
       <pre className="overflow-x-auto rounded-md border border-border bg-muted/40 px-4 py-3 pr-10 font-mono text-sm text-foreground">
         {code}
       </pre>
-      {code.includes("npm") && <CopyButton text={code} />}
+      {(code.includes("npm") || code.includes("yarn") || code.includes("pnpm")) && (
+        <CopyButton text={code} />
+      )}
     </div>
   );
 }
@@ -101,7 +103,7 @@ function CopyButton({ text }: { text: string }) {
       type="button"
       onClick={handleCopy}
       className={cn(
-        "absolute right-2 top-2 rounded-md p-1.5 transition-colors",
+        "absolute right-2 top-2 rounded-md p-1.5 transition-colors cursor-pointer",
         copied
           ? "bg-muted text-emerald-500 dark:text-emerald-400"
           : "text-muted-foreground hover:bg-muted hover:text-foreground",

@@ -19,7 +19,9 @@ export type DocBlock =
   | { kind: "text"; body: string }
   | { kind: "code"; lang: string; body: string }
   | { kind: "heading"; body: string }
-  | { kind: "list"; items: string[] };
+  | { kind: "list"; items: string[] }
+  | { kind: "install"; options: { label: string; command: string }[] }
+  | { kind: "note"; body: string };
 
 export type DocGuide = {
   id: string;
@@ -90,7 +92,7 @@ export const DOC_GUIDES: DocGuide[] = [
   {
     id: "getting-started",
     title: "Getting Started",
-    subtitle: "From install to your first workflow.",
+    subtitle: "Set up your editor, save and find snippets, then explore containers, AI search, and the web UI.",
     blocks: [
       {
         kind: "heading",
@@ -98,16 +100,94 @@ export const DOC_GUIDES: DocGuide[] = [
       },
       {
         kind: "text",
-        body: "Install Snippd globally so it is available from any terminal session.",
+        body: "Install Snippd with your preferred package manager, then follow these steps from a terminal:",
+      },
+      {
+        kind: "note",
+        body: "The Yarn command uses Yarn Classic (v1); Yarn 2 and newer do not support global installs.",
+      },
+      {
+        kind: "install",
+        options: [
+          { label: "npm", command: "npm install -g snippd" },
+          { label: "Yarn", command: "yarn global add snippd" },
+          { label: "pnpm", command: "pnpm add --global snippd" },
+        ],
+      },
+      {
+        kind: "heading",
+        body: "1. Initialize your configuration",
+      },
+      {
+        kind: "text",
+        body: "Create Snippd's local configuration file before setting up an editor or AI search. The file is stored in your Snippd data directory and can also be edited with a text editor.",
       },
       {
         kind: "code",
         lang: "bash",
-        body: "npm install -g snippd",
+        body: "snippd config init",
+      },
+      {
+        kind: "note",
+        body: "This creates the config file with empty defaults. If it already exists, init leaves it unchanged.",
+      },
+      {
+        kind: "heading",
+        body: "2. Configure your editor",
       },
       {
         kind: "text",
-        body: "Run the doctor command to verify everything is set up correctly.",
+        body: "Snippd opens a temporary file in your editor when you save a snippet, then reads its contents after you close it. Configure a GUI editor, a terminal/TUI editor, or both. Use the full executable path for IDEs—on Windows this is usually the editor's .exe file—and quote paths that contain spaces.",
+      },
+      {
+        kind: "code",
+        lang: "bash",
+        body: "snippd config set SNIPPD_GUI '\"C:\\Program Files\\Microsoft VS Code\\Code.exe\" --wait'",
+      },
+      {
+        kind: "code",
+        lang: "bash",
+        body: "snippd config set SNIPPD_TUI nvim",
+      },
+      {
+        kind: "text",
+        body: "Set the active editor mode when you have configured both, or whenever you want to switch between them:",
+      },
+      {
+        kind: "code",
+        lang: "bash",
+        body: "snippd config set CURRENT_EDITOR SNIPPD_GUI",
+      },
+      {
+        kind: "list",
+        items: [
+          "SNIPPD_GUI — command or full executable path for a GUI/interactive editor, such as VS Code or Cursor.",
+          "SNIPPD_TUI — command for a terminal editor, such as nvim, vim, or nano.",
+          "CURRENT_EDITOR — selects SNIPPD_GUI or SNIPPD_TUI as the active editor mode. Setting your first editor path selects that mode automatically.",
+          "EDITORS — optional saved editor aliases managed through snippd config editor.",
+          "OLLAMA_API_URL and OLLAMA_MODEL — optional AI-search settings; configure these in step 7.",
+        ],
+      },
+      {
+        kind: "note",
+        body: "On Windows, use the actual .exe path rather than a code or editor .cmd shim. GUI editors need --wait so Snippd waits until you finish editing the temporary snippet file. For example, VS Code is commonly installed under C:\\Program Files\\Microsoft VS Code\\Code.exe; use the path that exists on your machine.",
+      },
+      {
+        kind: "text",
+        body: "You can also configure editor paths interactively with snippd config editor, or inspect the current settings with snippd config show.",
+      },
+      {
+        kind: "code",
+        lang: "bash",
+        body: "snippd config editor\nsnippd config show",
+      },
+      {
+        kind: "heading",
+        body: "3. Check your configuration",
+      },
+      {
+        kind: "text",
+        body: "Run doctor after configuring your editor. It reports the config file, effective editor, Ollama status, embedding model, and index coverage, and tells you if anything needs attention.",
       },
       {
         kind: "code",
@@ -116,88 +196,89 @@ export const DOC_GUIDES: DocGuide[] = [
       },
       {
         kind: "heading",
-        body: "Scenario: building a React project",
+        body: "4. Save your first snippet",
       },
       {
         kind: "text",
-        body: "Let's walk through a real workflow. You are building a React app and just wrote a reusable debounce hook that you want to keep for future projects.",
-      },
-      {
-        kind: "heading",
-        body: "1. Save a snippet",
-      },
-      {
-        kind: "text",
-        body: "Pipe the file directly into Snippd, or run the save command and paste the code into the editor that opens.",
+        body: "Give the snippet a short, descriptive title. The extension can be included in the title or supplied with -e. Add optional tags to make it easier to find later. Snippd opens your configured editor; enter or paste the code, then save and close the editor to store it.",
       },
       {
         kind: "code",
         lang: "bash",
-        body: "snippd save \"useDebounce.ts\" -t react,hooks",
+        body: 'snippd save "parse-data.ts" -t node,csv',
       },
       {
-        kind: "text",
-        body: "Your configured editor opens. Paste or write the hook code, save, and close — the snippet is stored.",
+        kind: "note",
+        body: "Titles are unique. If you include an extension in the title, Snippd detects it automatically. Tags are optional, but useful for filtering and search.",
       },
       {
         kind: "heading",
-        body: "2. Browse your library",
+        body: "5. Search your snippets",
       },
       {
         kind: "text",
-        body: "List all saved snippets, or filter by tag.",
+        body: "Use keyword search to find matching titles or code content. Snippd presents matching snippets so you can select one to view, copy, or edit. Search by a phrase that appears in the code or title.",
       },
       {
         kind: "code",
         lang: "bash",
-        body: "snippd list\nsnippd recent",
+        body: 'snippd search "csv parser"',
       },
       {
         kind: "heading",
-        body: "3. Find it later",
+        body: "6. Organize snippets with containers",
       },
       {
         kind: "text",
-        body: "Weeks later you need that hook again. Search by keyword or use AI search to find it by describing what it does.",
+        body: "Containers group related snippets without duplicating them. Create one for a project or topic, then add snippets by their title. Use show to browse your containers.",
       },
       {
         kind: "code",
         lang: "bash",
-        body: "snippd search \"debounce\"\n\n# or, with semantic search\nsnippd ai \"hook that delays rapid state updates\"",
+        body: 'snippd containers create "data-tools" -d "CSV and data utilities"\nsnippd containers add "data-tools" "parse-data"\nsnippd containers show',
+      },
+      {
+        kind: "note",
+        body: "When adding a snippet, use its title as saved in Snippd; the extension is not required.",
       },
       {
         kind: "heading",
-        body: "4. Reuse it",
+        body: "7. Set up semantic search with AI (optional)",
       },
       {
         kind: "text",
-        body: "Copy the snippet straight to your clipboard and paste it into your new project.",
+        body: "Snippd's ai command finds snippets by describing what the code does, rather than matching only exact keywords. It uses Ollama and an embedding model running locally. Install Ollama, start it, and download an embedding model before configuring AI search.",
       },
       {
         kind: "code",
         lang: "bash",
-        body: "snippd copy \"useDebounce\"",
-      },
-      {
-        kind: "heading",
-        body: "5. Edit when things change",
+        body: "ollama pull <model-name>",
       },
       {
         kind: "text",
-        body: "Need to tweak the hook? Open it in your editor, make changes, and it is updated in place.",
+        body: "OLLAMA_API_URL is the Ollama server URL; it defaults to http://localhost:11434, so leave it unset for a standard local setup. OLLAMA_MODEL is the installed embedding model name. Set it, then create or refresh the embedding index.",
       },
       {
         kind: "code",
         lang: "bash",
-        body: "snippd edit \"useDebounce\"",
+        body: "snippd config set OLLAMA_MODEL <model-name>\nsnippd ai reindex",
+      },
+      {
+        kind: "code",
+        lang: "bash",
+        body: 'snippd ai "code that parses CSV rows"',
+      },
+      {
+        kind: "note",
+        body: "AI search requires Ollama to be installed and running locally, plus an embedding-capable model.Reindex after changing models or when you want to refresh embeddings.",
       },
       {
         kind: "heading",
-        body: "6. Open the web dashboard",
+        body: "8. Open the web UI",
       },
       {
         kind: "text",
-        body: "Prefer a visual interface? Launch the built-in web UI to browse, search, and manage snippets in your browser.",
+        body: "Start Snippd's local web dashboard to browse, search, and manage snippets in a browser. The UI and CLI use the same local database, so changes are shared between them.",
       },
       {
         kind: "code",
@@ -205,25 +286,12 @@ export const DOC_GUIDES: DocGuide[] = [
         body: "snippd ui",
       },
       {
-        kind: "heading",
-        body: "7. Configure your setup",
+        kind: "note",
+        body: "Keep the command running while using the web UI. Stop it with Ctrl+C when you are finished.",
       },
       {
         kind: "text",
-        body: "Set your preferred editor and configure AI search through the interactive config command.",
-      },
-      {
-        kind: "code",
-        lang: "bash",
-        body: "snippd config",
-      },
-      {
-        kind: "heading",
-        body: "Next steps",
-      },
-      {
-        kind: "text",
-        body: "That covers the essentials. Explore the command reference below to see everything Snippd can do — from managing tags and containers to exporting your entire library.",
+        body: "You are ready to build a searchable local snippet library. Explore the command reference for editing, tags, backups, and other workflows.",
       },
     ],
   },
