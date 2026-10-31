@@ -3,7 +3,7 @@ import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { Terminal } from "@/components/ui/terminal";
 
 /** Set to "/demo.mp4" (or a hosted URL) once your recording is ready. */
-const DEMO_VIDEO_SRC = "";
+const DEMO_VIDEO_SRC = "/demo.mp4";
 
 const USE_CASES = [
   {
@@ -158,7 +158,7 @@ export function HomePage() {
             Snippd
           </p>
           <p className="max-w-md text-base text-muted-foreground md:text-lg">
-            A <span className="font-bold text-xl text-white">local</span> snippet library for the terminal. Search it, then open the result in your preferred <code className="font-bold text-xl text-white">editor</code> — with your keybindings, syntax, and lint.
+            A <span className="font-bold text-xl text-foreground">local</span> snippet library for the terminal. Search it, then open the result in your preferred <code className="font-bold text-xl text-foreground">editor</code> — with your keybindings, syntax, and lint.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
             <a href="/docs">
@@ -213,51 +213,55 @@ export function HomePage() {
         id="in-your-editor"
         className="relative border-t border-border px-6 py-20"
       >
-        <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-start">
+        <div className="mx-auto max-w-5xl">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
               The snippet opens where you already write.
             </h2>
-            <p className="mt-2 max-w-xl text-muted-foreground">
+            <p className="mt-2 max-w-2xl text-muted-foreground">
               Search stays in the shell. The code opens in the editor you configured, then the save comes back to your library.
             </p>
-            <ol className="mt-8 space-y-5">
+            <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {EDITOR_BEATS.map((beat, index) => (
-                <li key={beat.title} className="flex gap-4">
-                  <span className="font-mono text-xs text-muted-foreground pt-1">
+                <li
+                  key={beat.title}
+                  className="flex gap-4 rounded-lg border border-border bg-muted/30 p-5 dark:bg-muted/10"
+                >
+                  <span className="pt-1 font-mono text-xs text-muted-foreground">
                     0{index + 1}
                   </span>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="text-base font-medium text-foreground">{beat.title}</h3>
                     <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{beat.body}</p>
                   </div>
                 </li>
               ))}
             </ol>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-lg border border-border px-4 py-3">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Gist / notes</p>
-                <p className="mt-1 text-sm text-foreground">Copy, switch windows, paste.</p>
-              </div>
-              <div className="rounded-lg border border-border bg-muted/40 px-4 py-3 dark:bg-muted/20">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Snippd</p>
-                <p className="mt-1 text-sm text-foreground">One command. Your editor.</p>
-              </div>
+          </div>
+
+          <div className="mt-16">
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+              See it in action
+            </h2>
+            <p className="mt-2 max-w-xl text-muted-foreground">
+              Search, open in your editor, edit, save.
+            </p>
+          </div>
+
+          <div className="mt-8 overflow-hidden rounded-lg">
+            <div className="relative aspect-video w-full">
+              <video
+                autoPlay
+                className="h-full w-full object-cover"
+                controls
+                controlsList="nodownload"
+                playsInline
+                preload="metadata"
+              >
+                <source src={DEMO_VIDEO_SRC} type="video/mp4" />
+              </video>
             </div>
           </div>
-          <Terminal
-            enableSound={false}
-            typingSpeed={20}
-            username="dev"
-            commands={[
-              `snippd search "debounce"`,
-              `snippd view "debounce.ts"`,
-            ]}
-            outputs={{
-              0: ["1 match · debounce.ts"],
-              1: ["Opening debounce.ts in VS Code..."],
-            }}
-          />
         </div>
       </section>
 
@@ -305,42 +309,6 @@ export function HomePage() {
                 outputs={active.outputs}
 
               />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="demo" className="relative border-t border-border px-6 py-20">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-            See it in action
-          </h2>
-          <p className="mt-2 max-w-xl text-muted-foreground">
-            Search, open in your editor, edit, save.
-          </p>
-
-          <div className="mt-10 overflow-hidden rounded-lg border border-border bg-muted/40 dark:bg-muted/20">
-            <div className="relative aspect-video w-full">
-              {DEMO_VIDEO_SRC ? (
-                <video
-                  className="h-full w-full object-cover"
-                  controls
-                  playsInline
-                  preload="metadata"
-                >
-                  <source src={DEMO_VIDEO_SRC} type="video/mp4" />
-                </video>
-              ) : (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">
-                  <p className="text-sm font-medium text-foreground">Demo video coming soon</p>
-                  <p className="max-w-sm text-xs text-muted-foreground">
-                    Drop your recording in{" "}
-                    <code className="rounded bg-muted px-1.5 py-0.5 font-mono">public/demo.mp4</code>
-                    , then set <code className="rounded bg-muted px-1.5 py-0.5 font-mono">DEMO_VIDEO_SRC</code>{" "}
-                    in <code className="rounded bg-muted px-1.5 py-0.5 font-mono">Home.tsx</code>.
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>

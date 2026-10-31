@@ -137,17 +137,25 @@ export const DOC_GUIDES: DocGuide[] = [
       },
       {
         kind: "text",
-        body: "Snippd opens a temporary file in your editor when you save a snippet, then reads its contents after you close it. Configure a GUI editor, a terminal/TUI editor, or both. Use the full executable path for IDEs—on Windows this is usually the editor's .exe file—and quote paths that contain spaces.",
+        body: "Snippd opens a temporary file in your editor when you save a snippet, then reads its contents after you close it. Configure a GUI editor, a terminal/TUI editor, or both.",
+      },
+      {
+        kind: "note",
+        body: "On Windows, use the full executable path instead of .cmd or .bat shims for GUI IDEs like VS Code, this is usually the editor's .exe file — and quote paths that contain spaces. Make sure the '--wait' flag is added so Snippd waits to save until you've closed the temp file."
       },
       {
         kind: "code",
         lang: "bash",
-        body: "snippd config set SNIPPD_GUI '\"C:\\Program Files\\Microsoft VS Code\\Code.exe\" --wait'",
+        body: 'snippd config set SNIPPD_GUI "C:\\Path\\To\\Executable\\Code.exe\ --wait"',
       },
       {
         kind: "code",
         lang: "bash",
-        body: "snippd config set SNIPPD_TUI nvim",
+        body: 'snippd config set SNIPPD_TUI "nvim --wait"',
+      },
+      {
+        kind: "note",
+        body: "For TUI editors, just adding the shorthand shim is fine.",
       },
       {
         kind: "text",
@@ -167,10 +175,6 @@ export const DOC_GUIDES: DocGuide[] = [
           "EDITORS — optional saved editor aliases managed through snippd config editor.",
           "OLLAMA_API_URL and OLLAMA_MODEL — optional AI-search settings; configure these in step 7.",
         ],
-      },
-      {
-        kind: "note",
-        body: "On Windows, use the actual .exe path rather than a code or editor .cmd shim. GUI editors need --wait so Snippd waits until you finish editing the temporary snippet file. For example, VS Code is commonly installed under C:\\Program Files\\Microsoft VS Code\\Code.exe; use the path that exists on your machine.",
       },
       {
         kind: "text",
@@ -255,7 +259,7 @@ export const DOC_GUIDES: DocGuide[] = [
         body: "ollama pull <model-name>",
       },
       {
-        kind: "text",
+        kind: "note",
         body: "OLLAMA_API_URL is the Ollama server URL; it defaults to http://localhost:11434, so leave it unset for a standard local setup. OLLAMA_MODEL is the installed embedding model name. Set it, then create or refresh the embedding index.",
       },
       {
@@ -270,7 +274,7 @@ export const DOC_GUIDES: DocGuide[] = [
       },
       {
         kind: "note",
-        body: "AI search requires Ollama to be installed and running locally, plus an embedding-capable model.Reindex after changing models or when you want to refresh embeddings.",
+        body: "AI search requires Ollama to be installed and running locally, plus an embedding-capable model. Reindex after changing models or when you want to refresh embeddings.",
       },
       {
         kind: "heading",

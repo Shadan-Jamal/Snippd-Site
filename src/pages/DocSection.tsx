@@ -18,7 +18,7 @@ function BlockRenderer({ block }: { block: DocBlock }) {
       );
     case "text":
       return (
-        <p className="mt-2 leading-relaxed text-muted-foreground">
+        <p className="mt-2 leading-relaxed font-light text-foreground/90">
           {block.body}
         </p>
       );
@@ -26,7 +26,7 @@ function BlockRenderer({ block }: { block: DocBlock }) {
       return <CodeBlock code={block.body} />;
     case "list":
       return (
-        <ul className="mt-3 space-y-1.5 pl-5 text-muted-foreground">
+        <ul className="mt-3 space-y-1.5 pl-5 font-light text-muted-foreground">
           {block.items.map((item, i) => (
             <li key={i} className="list-disc leading-relaxed">
               {item}
@@ -212,7 +212,7 @@ export function DocSectionPage({ id }: { id: string }) {
                 {guide.title}
               </h2>
               {guide.subtitle && (
-                <p className="mt-1 text-sm text-muted-foreground">
+                <p className="mt-1 text-sm font-light text-muted-foreground">
                   {guide.subtitle}
                 </p>
               )}
@@ -229,7 +229,7 @@ export function DocSectionPage({ id }: { id: string }) {
               <h2 className="font-mono text-xl font-semibold text-foreground">
                 {command.title}
               </h2>
-              <p className="mt-2 text-muted-foreground">{command.summary}</p>
+              <p className="mt-2 font-light text-muted-foreground">{command.summary}</p>
               <CodeBlock code={command.usage} />
 
               {command.sub_commands && command.sub_commands.length > 0 && (

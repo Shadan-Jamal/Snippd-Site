@@ -35,6 +35,7 @@ export default function AiGuide() {
       ]}
       notes={[
         "Requires Ollama to be installed and running locally.",
+        "Make sure to reindex after saving a new snippet",
         "You must configure an embedding model via snippd config set OLLAMA_MODEL or snippd ai choose.",
         "Run snippd ai reindex after changing models or adding new snippets to update embeddings.",
         "Semantic search understands meaning, not just keywords - useful when you don't remember exact terms.",

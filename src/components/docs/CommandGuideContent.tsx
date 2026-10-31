@@ -21,14 +21,14 @@ export function CommandGuideContent({
   return (
     <div className="mt-8 space-y-8">
       <section>
-        <h3 className="text-lg font-semibold text-foreground">Overview</h3>
-        <p className="mt-2 leading-relaxed text-muted-foreground">{intro}</p>
+        <h3 className="text-lg font-semibold tracking-tight text-foreground">Overview</h3>
+        <p className="mt-2 text-base font-light leading-7 text-foreground/85">{intro}</p>
       </section>
 
       {commandFlows[0] && (
         <section>
-          <h3 className="text-lg font-semibold text-foreground">Terminal flow</h3>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <h3 className="text-lg font-semibold tracking-tight text-foreground">Terminal flow</h3>
+          <p className="mt-2 text-base font-light leading-7 text-foreground/80">
             Example output is illustrative and may vary with your local library.
           </p>
           <Terminal
@@ -47,11 +47,11 @@ export function CommandGuideContent({
 
       {examples.length > 0 && (
         <section>
-          <h3 className="text-lg font-semibold text-foreground">Examples</h3>
+          <h3 className="text-lg font-semibold tracking-tight text-foreground">Examples</h3>
           <div className="mt-4 space-y-4">
             {examples.map((example) => (
               <div key={example.code}>
-                <p className="text-sm text-muted-foreground">{example.description}</p>
+                <p className="text-base font-light leading-7 text-foreground/80">{example.description}</p>
                 <CodeBlock code={example.code} />
               </div>
             ))}
@@ -61,8 +61,8 @@ export function CommandGuideContent({
 
       {notes.length > 0 && (
         <section>
-          <h3 className="text-lg font-semibold text-foreground">Notes</h3>
-          <ul className="mt-4 space-y-2 pl-5 text-muted-foreground">
+          <h3 className="text-lg font-semibold tracking-tight text-foreground">Notes</h3>
+          <ul className="mt-4 space-y-2 pl-5 text-base font-light leading-7 text-foreground/85">
             {notes.map((note) => (
               <li key={note} className="list-disc leading-relaxed">
                 {note}
