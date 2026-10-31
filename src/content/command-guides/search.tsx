@@ -33,8 +33,7 @@ export default function SearchGuide() {
         { description: "Search only in snippet code content", code: 'snippd search "import express" --content' },
         { description: "Search only in tags", code: 'snippd search "react" --tags' },
         { description: "Search only in file extensions", code: 'snippd search "ts" --ext' },
-        { description: "Search container names and descriptions", code: 'snippd search "utils" --container' },
-        { description: "Combine container search with snippet filters", code: 'snippd search "api" --container --content' },
+        { description: "Seach for containers.", code: 'snippd search "new-container" --container' },
       ]}
       commandFlows={commandFlows}
       notes={[
