@@ -130,7 +130,7 @@ export function DocSectionPage({ id }: { id: string }) {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-5xl gap-10 px-6 pb-24 pt-28">
+    <div className="mx-auto flex min-h-screen max-w-6xl gap-10 px-6 pb-24 pt-28">
       <aside className="sticky top-28 hidden h-[calc(100vh-8rem)] w-44 shrink-0 overflow-y-auto md:block lg:w-52">
         {/* Guide links */}
         <nav className="flex flex-col gap-0.5" aria-label="Guide sections">

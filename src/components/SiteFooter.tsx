@@ -7,7 +7,7 @@ const GITHUB_URL = "https://github.com/Shadan-Jamal/Snippd";
 export function SiteFooter() {
   return (
     <footer className="border-t border-border px-6 py-12">
-      <div className="mx-auto grid max-w-5xl gap-8 sm:grid-cols-2 sm:items-center">
+      <div className="mx-auto grid max-w-5xl gap-8 grid-cols-2 sm:items-center">
         <Link href="/" className="flex items-center gap-3 text-foreground no-underline">
           <img
             src="/favicon.svg"

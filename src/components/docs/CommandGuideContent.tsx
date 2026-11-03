@@ -81,7 +81,7 @@ export function CodeBlock({ code }: { code: string }) {
       <pre className="overflow-x-auto rounded-md border border-border bg-muted/40 px-4 py-3 pr-10 font-mono text-sm text-foreground">
         {code}
       </pre>
-      {(code.includes("npm") || code.includes("yarn") || code.includes("pnpm")) && (
+      {["npm","pnpm","yarn","bun"].some((cmd) => code.includes(cmd)) && (
         <CopyButton text={code} />
       )}
     </div>
