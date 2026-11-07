@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router";
+import { InstallCard } from "@/components/InstallCard";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { Terminal } from "@/components/ui/terminal";
 
-/** Set to "/demo.mp4" (or a hosted URL) once your recording is ready. */
 const DEMO_VIDEO_SRC = "/demo.mp4";
 
 const USE_CASES = [
@@ -154,26 +155,27 @@ export function HomePage() {
 
       <section className="relative mx-auto flex min-h-[88vh] max-w-5xl flex-col justify-center gap-10 px-6 pb-16 pt-28 md:flex-row md:items-center md:gap-14">
         <div className="flex-1 space-y-6">
-          <p className="font-mono text-7xl text-foreground uppercase">
+          <h1 className="font-mono text-7xl text-foreground uppercase">
             Snippd
-          </p>
+          </h1>
           <p className="max-w-md text-base text-muted-foreground md:text-lg">
             A <span className="font-bold text-xl text-foreground">local</span> snippet library for the terminal. Search it, then open the result in your preferred <code className="font-bold text-xl text-foreground">editor</code> — with your keybindings, syntax, and lint.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <a href="/docs">
+            <Link to="/docs">
               <HoverBorderGradient
+                as="span"
                 containerClassName="inline-flex rounded-full"
                 className="rounded-full bg-background px-5 py-2 text-sm font-medium text-foreground"
               >
                 Read the docs
               </HoverBorderGradient>
-            </a>
+            </Link>
             <a
               href="#in-your-editor"
               className="px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              In your editor
+              Watch demo
             </a>
             <a
               href="#use-cases"
@@ -181,13 +183,8 @@ export function HomePage() {
             >
               See how it fits
             </a>
-            <a
-              href="#demo"
-              className="px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Watch demo
-            </a>
           </div>
+          <InstallCard />
         </div>
 
         <div className="w-full flex-1 md:max-w-md">
@@ -343,12 +340,12 @@ export function HomePage() {
             <ul className="mt-6 flex flex-wrap gap-2">
               {CLI_LINKS.map((item) => (
                 <li key={item.href}>
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="inline-flex rounded-md border border-border px-3 py-1.5 font-mono text-sm text-foreground hover:bg-muted"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link } from "react-router";
 
 /** Update these when the package / repo are published. */
 const NPM_URL = "https://www.npmjs.com/package/snippd";
@@ -8,7 +8,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border px-6 py-12">
       <div className="mx-auto grid max-w-5xl gap-8 grid-cols-2 sm:items-center">
-        <Link href="/" className="flex items-center gap-3 text-foreground no-underline">
+        <Link to="/" className="flex items-center gap-3 text-foreground no-underline">
           <img
             src="/favicon.svg"
             alt=""
@@ -69,7 +69,7 @@ export function SiteFooter() {
             </svg>
           </a>
           <Link
-            href="/docs"
+            to="/docs"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             Docs

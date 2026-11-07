@@ -1,3 +1,5 @@
+import { INSTALL_OPTIONS } from "./install.ts";
+
 /* ------------------------------------------------------------------ */
 /*  Types                                                             */
 /* ------------------------------------------------------------------ */
@@ -108,12 +110,7 @@ export const DOC_GUIDES: DocGuide[] = [
       },
       {
         kind: "install",
-        options: [
-          { label: "npm", command: "npm install -g snippd" },
-          { label: "bun", command: "bun add -g snippd" },
-          { label: "Yarn", command: "yarn global add snippd" },
-          { label: "pnpm", command: "pnpm add --global snippd" },
-        ],
+        options: INSTALL_OPTIONS,
       },
       {
         kind: "heading",

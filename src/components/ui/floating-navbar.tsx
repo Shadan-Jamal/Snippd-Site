@@ -6,7 +6,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
-import { Link } from "wouter";
+import { Link } from "react-router";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 
@@ -66,7 +66,7 @@ export const FloatingNav = ({
             {navItems.map((navItem, idx: number) => (
               <Link
                 key={`link-${idx}`}
-                href={navItem.link}
+                to={navItem.link}
                 className={cn(
                   "relative flex justify-center items-center gap-1 rounded-full w-fit px-4 py-2 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-white"
                 )}

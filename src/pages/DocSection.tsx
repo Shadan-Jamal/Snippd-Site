@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { DOC_GUIDES, DOC_COMMANDS, type DocBlock } from "@/data/docs";
 import { COMMAND_GUIDES } from "@/content/command-guides";
 import { CodeBlock } from "@/components/docs/CommandGuideContent";
@@ -100,14 +101,12 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
 ];
 
 export function DocSectionPage({ id }: { id: string }) {
-  useEffect(() => {
-    // Scroll to top on page load
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  const navigate = useNavigate();
 
-  function selectItem(itemId: string) {
-    window.location.href = `/docs/${itemId}`;
-  }
+  useEffect(() => {
+    // Scroll to top when switching between documentation sections.
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id]);
 
   /* Group sidebar items for rendering */
   const guideItems = SIDEBAR_ITEMS.filter((i) => i.group === "guide");
@@ -122,9 +121,9 @@ export function DocSectionPage({ id }: { id: string }) {
     return (
       <main className="mx-auto max-w-3xl px-6 pt-28">
         <h1 className="text-2xl font-semibold">Section not found</h1>
-        <a href="/docs" className="mt-4 inline-block text-sm text-muted-foreground underline">
+        <Link to="/docs" className="mt-4 inline-block text-sm text-muted-foreground underline">
           Back to docs
-        </a>
+        </Link>
       </main>
     );
   }
@@ -135,10 +134,10 @@ export function DocSectionPage({ id }: { id: string }) {
         {/* Guide links */}
         <nav className="flex flex-col gap-0.5" aria-label="Guide sections">
           {guideItems.map((item) => (
-            <button
+            <Link
               key={item.id}
-              type="button"
-              onClick={() => selectItem(item.id)}
+              to={`/docs/${item.id}`}
+              aria-current={id === item.id ? "page" : undefined}
               className={cn(
                 "rounded-md px-2.5 py-1.5 text-left text-sm transition-colors cursor-pointer",
                 id === item.id
@@ -147,7 +146,7 @@ export function DocSectionPage({ id }: { id: string }) {
               )}
             >
               {item.label}
-            </button>
+            </Link>
           ))}
         </nav>
 
@@ -160,10 +159,10 @@ export function DocSectionPage({ id }: { id: string }) {
         </p>
         <nav className="flex flex-col gap-0.5" aria-label="Command docs">
           {commandItems.map((item) => (
-            <button
+            <Link
               key={item.id}
-              type="button"
-              onClick={() => selectItem(item.id)}
+              to={`/docs/${item.id}`}
+              aria-current={id === item.id ? "page" : undefined}
               className={cn(
                 "rounded-md px-2.5 py-1.5 text-left font-mono text-sm transition-colors cursor-pointer",
                 id === item.id
@@ -172,7 +171,7 @@ export function DocSectionPage({ id }: { id: string }) {
               )}
             >
               {item.label}
-            </button>
+            </Link>
           ))}
         </nav>
       </aside>
@@ -185,7 +184,7 @@ export function DocSectionPage({ id }: { id: string }) {
             <select
               className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 font-mono text-sm"
               value={id}
-              onChange={(e) => selectItem(e.target.value)}
+              onChange={(e) => navigate(`/docs/${e.target.value}`)}
             >
               <optgroup label="Guides">
                 {guideItems.map((item) => (
@@ -208,9 +207,9 @@ export function DocSectionPage({ id }: { id: string }) {
         <div className="space-y-14">
           {guide && (
             <section id={`doc-${guide.id}`} className="scroll-mt-28">
-              <h2 className="text-xl font-semibold text-foreground">
+              <h1 className="text-xl font-semibold text-foreground">
                 {guide.title}
-              </h2>
+              </h1>
               {guide.subtitle && (
                 <p className="mt-1 text-sm font-light text-muted-foreground">
                   {guide.subtitle}
@@ -226,9 +225,9 @@ export function DocSectionPage({ id }: { id: string }) {
 
           {command && (
             <section id={`doc-${command.id}`} className="scroll-mt-28">
-              <h2 className="font-mono text-xl font-semibold text-foreground">
+              <h1 className="font-mono text-xl font-semibold text-foreground">
                 {command.title}
-              </h2>
+              </h1>
               <p className="mt-2 font-light text-muted-foreground">{command.summary}</p>
               <CodeBlock code={command.usage} />
 

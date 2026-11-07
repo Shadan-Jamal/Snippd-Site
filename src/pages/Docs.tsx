@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { DOC_GUIDES, DOC_COMMANDS } from "@/data/docs";
 
 /* ------------------------------------------------------------------ */
@@ -30,13 +31,13 @@ export function DocsPage() {
         {/* Guide links */}
         <nav className="flex flex-col gap-0.5" aria-label="Guide sections">
           {guideItems.map((item) => (
-            <a
+            <Link
               key={item.id}
-              href={`/docs/${item.id}`}
+              to={`/docs/${item.id}`}
               className="rounded-md px-2.5 py-1.5 text-left text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -49,13 +50,13 @@ export function DocsPage() {
         </p>
         <nav className="flex flex-col gap-0.5" aria-label="Command docs">
           {commandItems.map((item) => (
-            <a
+            <Link
               key={item.id}
-              href={`/docs/${item.id}`}
+              to={`/docs/${item.id}`}
               className="rounded-md px-2.5 py-1.5 text-left font-mono text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
       </aside>
@@ -74,13 +75,13 @@ export function DocsPage() {
             <h2 className="text-lg font-semibold text-foreground mb-4">Guides</h2>
             <div className="grid grid-cols-2 gap-4">
               {guideItems.map((item) => (
-                <a
+                <Link
                   key={item.id}
-                  href={`/docs/${item.id}`}
+                  to={`/docs/${item.id}`}
                   className="block rounded-lg border border-border bg-muted/40 p-4 hover:bg-muted/60 transition-colors cursor-pointer"
                 >
                   <h3 className="font-medium text-foreground">{item.label}</h3>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -90,13 +91,13 @@ export function DocsPage() {
             <h2 className="text-lg font-semibold text-foreground mb-4">Commands</h2>
             <div className="grid grid-cols-2 gap-4">
               {commandItems.map((item) => (
-                <a
+                <Link
                   key={item.id}
-                  href={`/docs/${item.id}`}
+                  to={`/docs/${item.id}`}
                   className="block rounded-lg border border-border bg-muted/40 p-4 hover:bg-muted/60 transition-colors cursor-pointer"
                 >
                   <h3 className="font-mono text-sm text-foreground">{item.label}</h3>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
