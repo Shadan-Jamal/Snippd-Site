@@ -5,7 +5,7 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const meta: MetaFunction = () =>
   seoMeta({
-    title: "Snippd — Local-first CLI snippet manager",
+    title: "Snippd — Local-only CLI snippet manager",
     description: SITE_DESCRIPTION,
     path: "/",
     jsonLd: {

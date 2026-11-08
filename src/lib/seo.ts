@@ -46,7 +46,7 @@ export function seoMeta({
     { property: "og:image", content: imageUrl },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: `${SITE_NAME} — local-first CLI snippet manager` },
+    { property: "og:image:alt", content: `${SITE_NAME} — local-only CLI snippet manager` },
     { property: "og:locale", content: "en_US" },
   ];
 
